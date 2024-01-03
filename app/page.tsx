@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <main>
-      <h1 className="mb-4">Home Page</h1>
+      <h1 className="mb-4">Home Page 1</h1>
       <PostsList data={postsData} />
     </main>
   );
