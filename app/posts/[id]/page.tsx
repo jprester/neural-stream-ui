@@ -1,4 +1,5 @@
 import React from "react";
+import { Spinner } from "flowbite-react";
 
 import { Post as PostType } from "@/types";
 
@@ -20,7 +21,7 @@ const PostDetail = async ({ params }: ParamsProps) => {
   } catch (error) {
     // console.log("error: ", error);
   }
-  if (!singlePostData) return <div>loading...</div>;
+  if (!singlePostData) return <Spinner />;
 
   console.log("render post page");
 

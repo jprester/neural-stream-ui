@@ -15,11 +15,9 @@ export default async function Home() {
 
   const postsData: PostsType = await postsResponse.json();
 
-  // console.log("postsData: ", postsData);
-
   return (
     <main>
-      <h1>STAAAAARt</h1>
+      <h1 className="mb-4">Home Page</h1>
       <PostsList data={postsData} />
     </main>
   );
