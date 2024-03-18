@@ -1,20 +1,15 @@
 import React from "react";
 import Link from "next/link";
 
-import { ListGroup, ListGroupItem, List } from "flowbite-react";
-import { Card } from "flowbite-react";
 import { Posts } from "@/types";
 import { createKeyId } from "@/helpers/utils";
 
 const PostsList = ({ postData }: { postData: Posts }) => {
-  // console.log("data: ", data);
-
   return (
     <>
       {postData.map((item, index) => {
         return (
           <div key={createKeyId(item.name, index)} className="mb-4 p-4">
-            {/* <Card className="block p-6 mb-6 rounded-lg  bg-gray-800  border-none lg:mb-0"> */}
             <h3 className="inline-block mb-2 text-xl tracking-tight text-grey-600 font-medium text-gray-100">
               {item.name}
             </h3>
@@ -33,7 +28,6 @@ const PostsList = ({ postData }: { postData: Posts }) => {
                 );
               })}
             </ul>
-            {/* </Card> */}
           </div>
         );
       })}

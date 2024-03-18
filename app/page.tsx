@@ -7,6 +7,7 @@ import { XMLParser } from "fast-xml-parser";
 import { FEED_SOURCES, PROXY_SERVER } from "@/helpers/apiConfig";
 import { Posts as PostsType } from "@/types/";
 import { parseFeedData } from "@/helpers/utils";
+import Logo from "public/logo.svg";
 
 import { Inter } from "next/font/google";
 
@@ -70,9 +71,12 @@ export default async function Home() {
     <main className={inter.className}>
       <div className="mx-auto lg:w-3/4 p-2">
         <header className="py-4 mb-4">
-          <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300">
-            AI ASCENT
-            <span className="ml-2 font-light text-base">AI News Site</span>
+          <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300 flex">
+            <Image src={Logo} alt="AI Ascent Logo" width={20} height={20} />
+            <span className="mx-2 font-semibold">AI ASCENT</span>
+            <span className="ml-1 font-extralight text-base mt-3 pb-0">
+              Place For tracking AI progress
+            </span>
           </h1>
         </header>
 
