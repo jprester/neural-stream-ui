@@ -29,7 +29,7 @@ const PostDetail = async ({ params }: ParamsProps) => {
     <div>
       <h1>Post Details for Post ID: {params.id}</h1>
       <div>
-        <h2>{singlePostData.title}</h2>
+        <h2>{singlePostData.name}</h2>
       </div>
     </div>
   );

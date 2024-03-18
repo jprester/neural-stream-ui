@@ -1,8 +1,20 @@
 export type Post = {
   id: number;
-  title: string;
-  body: string;
+  name: string;
+  webLink: string;
+  type: string;
   userId: number;
+  data: Article[];
+};
+
+export type Article = {
+  id: string;
+  title: string;
+  link: string;
+  pubDate: string;
+  category: string[];
+  guid: string;
+  description: string;
 };
 
 export type Posts = Post[];
