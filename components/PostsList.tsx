@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Posts } from "@/types";
 import { createKeyId } from "@/helpers/utils";
+import { ListGroup, ListGroupItem } from "flowbite-react";
 
 const PostsList = ({ postData }: { postData: Posts }) => {
   return (
@@ -13,21 +14,17 @@ const PostsList = ({ postData }: { postData: Posts }) => {
             <h3 className="inline-block mb-2 text-xl tracking-tight text-grey-600 font-medium text-gray-100">
               {item.name}
             </h3>
-            <ul>
-              {item.data.map((article: any, index: number) => {
+            <ListGroup className="dark:bg-gray-800">
+              {item.data.map((article, index) => {
                 return (
-                  <li
+                  <ListGroupItem
                     key={createKeyId(article.title, index)}
-                    className="py-2 mx-0">
-                    <Link
-                      href={`${article.id || article.link}`}
-                      className="text-gray-300 text-md link border-b-2">
-                      {article.title}
-                    </Link>
-                  </li>
+                    href={`${article.id || article.link}`}>
+                    {article.title}
+                  </ListGroupItem>
                 );
               })}
-            </ul>
+            </ListGroup>
           </div>
         );
       })}

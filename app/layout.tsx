@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 
-// const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AI Ascent",
@@ -16,7 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`bg-gray-900 antialiased mb-4 text-md text-gray-400`}>
+      <body
+        className={`bg-gray-900 antialiased mb-4 text-md text-gray-400 dark`}>
         {children}
       </body>
     </html>
