@@ -68,10 +68,10 @@ export const FEED_SOURCES = {
   //   TYPE: "videos",
   //   NAME: "Lex Fridman",
   // },
-  GOOGLE: {
-    FEED: "http://feeds.feedburner.com/blogspot/gJZg?format=xml",
-    WEB_LINK: "https://ai.googleblog.com/",
-    TYPE: "scipapers",
-    NAME: "Google AI",
-  },
+  // GOOGLE: {
+  //   FEED: "http://feeds.feedburner.com/blogspot/gJZg?format=xml",
+  //   WEB_LINK: "https://ai.googleblog.com/",
+  //   TYPE: "scipapers",
+  //   NAME: "Google AI",
+  // },
 };
