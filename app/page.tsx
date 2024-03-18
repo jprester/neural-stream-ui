@@ -68,13 +68,18 @@ export default async function Home() {
 
   return (
     <main className={inter.className}>
-      <header className="py-2">
-        <h1 className="mx-4 text-center text-2xl font-bold">
-          AI ASCENT - AI News aggregator
-        </h1>
-      </header>
+      <div className="mx-auto lg:w-3/4">
+        <header className="py-4 mb-4">
+          <h1 className="mx-4 text-center lg:text-left font-medium text-3xl">
+            AI ASCENT
+            <span className="ml-2 font-light text-base">AI News Site</span>
+          </h1>
+        </header>
 
-      <PostsList postData={postsData} />
+        <div>
+          <PostsList postData={postsData} />
+        </div>
+      </div>
     </main>
   );
 }
