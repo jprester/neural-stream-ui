@@ -15,7 +15,7 @@ const PostsList = ({ postData }: { postData: Posts }) => {
         return (
           <div key={createKeyId(item.name, index)} className="mb-4 p-4">
             {/* <Card className="block p-6 mb-6 rounded-lg  bg-gray-800  border-none lg:mb-0"> */}
-            <h3 className="inline-block mb-2 text-xl tracking-tight text-grey-600 font-medium text-grey-100">
+            <h3 className="inline-block mb-2 text-xl tracking-tight text-grey-600 font-medium text-gray-100">
               {item.name}
             </h3>
             <ul>
@@ -26,7 +26,7 @@ const PostsList = ({ postData }: { postData: Posts }) => {
                     className="py-2 mx-0">
                     <Link
                       href={`${article.id || article.link}`}
-                      className="hover:text-gray-60 text-lg link">
+                      className="text-gray-300 text-md link border-b-2">
                       {article.title}
                     </Link>
                   </li>

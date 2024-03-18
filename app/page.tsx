@@ -68,9 +68,9 @@ export default async function Home() {
 
   return (
     <main className={inter.className}>
-      <div className="mx-auto lg:w-3/4">
+      <div className="mx-auto lg:w-3/4 p-2">
         <header className="py-4 mb-4">
-          <h1 className="mx-4 text-center lg:text-left font-medium text-3xl">
+          <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300">
             AI ASCENT
             <span className="ml-2 font-light text-base">AI News Site</span>
           </h1>
