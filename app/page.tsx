@@ -73,8 +73,8 @@ export default async function Home() {
         <header className="py-4 mb-4">
           <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300 flex">
             <Image src={Logo} alt="AI Ascent Logo" width={20} height={20} />
-            <span className="mx-2 font-semibold">AI ASCENT</span>
-            <span className="ml-1 font-extralight text-base mt-3 pb-0">
+            <span className="mx-2 font-semibold text-left">AI ASCENT</span>
+            <span className="ml-1 font-extralight invisible text-base mt-3 pb-0 sm:visible">
               Place For tracking AI progress
             </span>
           </h1>
