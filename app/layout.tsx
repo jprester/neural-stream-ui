@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import GoogleAnalytics from "@/lib/GoogleAnalytics";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,6 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`bg-gray-900 antialiased mb-4 text-md text-gray-400 dark`}>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+          <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        ) : null}
         {children}
       </body>
     </html>
