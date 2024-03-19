@@ -9,6 +9,8 @@ import { Posts as PostsType } from "@/types/";
 import { parseFeedData } from "@/helpers/utils";
 import Logo from "public/logo.svg";
 
+import content from "../content.json";
+
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -65,6 +67,8 @@ export default async function Home() {
     }
   };
 
+  console.log("content: ", content);
+
   const postsData: any = await getPosts();
 
   return (
@@ -79,7 +83,6 @@ export default async function Home() {
             </span>
           </h1>
         </header>
-
         <div>
           <PostsList postData={postsData} />
         </div>
