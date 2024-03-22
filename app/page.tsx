@@ -33,21 +33,23 @@ export default async function Home() {
 
     try {
       const dataPromises = feedRequestData.map((dataObject) =>
-        fetch(dataObject.FEED).then(async (response) => {
-          const xmlResponse = await response.text();
+        fetch(dataObject.FEED, { next: { revalidate: 3600 } }).then(
+          async (response) => {
+            const xmlResponse = await response.text();
 
-          const parsedResult = parser.parse(xmlResponse);
+            const parsedResult = parser.parse(xmlResponse);
 
-          const parsedFeedData = parseFeedData(parsedResult, 5);
+            const parsedFeedData = parseFeedData(parsedResult, 5);
 
-          return {
-            feedName: dataObject.NAME,
-            webLink: dataObject.WEB_LINK,
-            name: dataObject.NAME,
-            type: dataObject.TYPE,
-            data: parsedFeedData,
-          };
-        })
+            return {
+              feedName: dataObject.NAME,
+              webLink: dataObject.WEB_LINK,
+              name: dataObject.NAME,
+              type: dataObject.TYPE,
+              data: parsedFeedData,
+            };
+          }
+        )
       );
       const promiseData = await Promise.all(dataPromises);
 
