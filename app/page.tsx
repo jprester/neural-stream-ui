@@ -24,6 +24,8 @@ export default async function Home() {
   const getPosts = async () => {
     const parser = new XMLParser();
 
+    let allPosts: PostsType = [];
+
     const feedRequestData = Object.entries(FEED_SOURCES).map(
       ([key, value]) => ({
         id: key.toUpperCase(),
@@ -74,10 +76,17 @@ export default async function Home() {
         <header className="py-4 mb-4">
           <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300 align-bottom flex items-center">
             <Link href="./" className="align-bottom items-baseline">
-              <Image src={Logo} alt="AI Ascent Logo" width={20} height={20} />
+              <Image
+                src={Logo}
+                alt="Neural Stream Logo"
+                width={20}
+                height={20}
+              />
             </Link>
             <Link href="./" className="align-bottom items-baseline">
-              <span className="mx-2 font-semibold text-left">AI ASCENT</span>
+              <span className="mx-2 font-semibold text-left">
+                Neural Stream
+              </span>
             </Link>
             <span className="ml-1 font-extralight hidden text-base mt-3 pb-0 sm:block">
               Place For tracking AI progress
