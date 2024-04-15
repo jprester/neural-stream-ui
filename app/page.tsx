@@ -1,16 +1,14 @@
-// "use client";
+import { XMLParser } from "fast-xml-parser";
 
 import Image from "next/image";
-import Posts from "./posts/page";
-import PostsList from "@/components/PostsList";
-import { XMLParser } from "fast-xml-parser";
-import { FEED_SOURCES, PROXY_SERVER } from "@/helpers/apiConfig";
-import { Posts as PostsType } from "@/types/";
-import { parseFeedData } from "@/helpers/utils";
-import Logo from "public/logo.svg";
-
 import { Inter } from "next/font/google";
 import Link from "next/link";
+
+import PostsList from "@/components/PostsList";
+import { FEED_SOURCES } from "@/helpers/apiConfig";
+import { parseFeedData } from "@/helpers/utils";
+
+import Logo from "public/logo.svg";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,23 +22,22 @@ export default async function Home() {
   const getPosts = async () => {
     const parser = new XMLParser();
 
-    let allPosts: PostsType = [];
-
-    const feedRequestData = Object.entries(FEED_SOURCES).map(
-      ([key, value]) => ({
+    const feedRequestData = Object.entries(FEED_SOURCES)
+      .map(([key, value]) => ({
         id: key.toUpperCase(),
         ...value,
-      })
-    );
+      }))
+      .filter((feed) => feed.ENABLED === true); // What data sources to exclude from request
 
     try {
       const dataPromises = feedRequestData.map((dataObject) =>
         fetch(dataObject.FEED, { cache: "no-store" }).then(async (response) => {
           const xmlResponse = await response.text();
-
           const parsedResult = parser.parse(xmlResponse);
-
-          const parsedFeedData = parseFeedData(parsedResult, 5);
+          const parsedFeedData = parseFeedData(
+            parsedResult,
+            dataObject.ARTICLE_NUM
+          );
 
           return {
             feedName: dataObject.NAME,
@@ -72,7 +69,7 @@ export default async function Home() {
 
   return (
     <main className={inter.className}>
-      <div className="mx-auto lg:w-3/4 p-2">
+      <div className="container mx-auto max-w-screen-md p-2">
         <header className="py-4 mb-4">
           <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300 align-bottom flex items-center">
             <Link href="./" className="align-bottom items-baseline">

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 h1 {
   font-size: 2em;
 }
@@ -32,4 +31,3 @@ h4 {
   /* color: #007bff; */
   border-color: #0056b3;
 }
-

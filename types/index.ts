@@ -17,4 +17,10 @@ export type Article = {
   description: string;
 };
 
+export enum FeedType {
+  Articles = "articles",
+  Videos = "videos",
+  Scipapers = "scipapers",
+}
+
 export type Posts = Post[];
