@@ -7,8 +7,10 @@ import Link from "next/link";
 import PostsList from "@/components/PostsList";
 import { FEED_SOURCES } from "@/helpers/apiConfig";
 import { parseFeedData } from "@/helpers/utils";
+import { getNewsItems } from "@/helpers/parseMarkdown";
 
 import Logo from "public/logo.svg";
+import { NewsItem, Post } from "@/types";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,7 +67,16 @@ export default async function Home() {
     }
   };
 
-  const postsData: any = await getPosts();
+  const postsData = (await getPosts()) as Post[] | undefined;
+
+  const newsFeed = {
+    name: "AI News",
+    webLink: "",
+    type: "articles",
+    data: getNewsItems() as NewsItem[],
+  };
+
+  const allNewsItems = [newsFeed, ...(postsData ?? [])];
 
   return (
     <main className={inter.className}>
@@ -73,12 +84,7 @@ export default async function Home() {
         <header className="py-4 mb-4">
           <h1 className="mx-4 text-center lg:text-left font-medium text-3xl text-gray-300 align-bottom flex items-center">
             <Link href="./" className="align-bottom items-baseline">
-              <Image
-                src={Logo}
-                alt="Neural Stream Logo"
-                width={20}
-                height={20}
-              />
+              <Image src={Logo} alt="Neural Stream Logo" />
             </Link>
             <Link href="./" className="align-bottom items-baseline">
               <span className="mx-2 font-semibold text-left">
@@ -92,7 +98,7 @@ export default async function Home() {
         </header>
 
         <div>
-          <PostsList postData={postsData} />
+          <PostsList postData={allNewsItems} />
         </div>
       </div>
     </main>

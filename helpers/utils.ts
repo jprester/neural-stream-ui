@@ -58,7 +58,7 @@ export function formatDate(date: string) {
 export const createKeyId = (name: string, index: number) => {
   if (!name) return uuidv4();
 
-  const formatedName = name.replace(/\s/g, "-").toLowerCase();
+  const formattedName = name.replace(/\s/g, "-").toLowerCase();
 
-  return `${formatedName}-${index}`;
+  return `${formattedName}-${index}`;
 };

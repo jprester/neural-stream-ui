@@ -1,10 +1,19 @@
 export type Post = {
-  id: number;
+  id?: number;
   name: string;
   webLink: string;
   type: string;
-  userId: number;
-  data: Article[];
+  userId?: number;
+  data: Article[] | NewsItem[];
+};
+
+export type NewsItem = {
+  title: string;
+  link: string;
+  date: string;
+  tags: string[];
+  content: string;
+  id?: string;
 };
 
 export type Article = {

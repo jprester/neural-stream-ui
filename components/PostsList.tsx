@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { Posts } from "@/types";
+import { NewsItem, Posts } from "@/types";
 import { createKeyId } from "@/helpers/utils";
 import { Button, ListGroup, ListGroupItem } from "flowbite-react";
 
