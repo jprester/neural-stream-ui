@@ -4,6 +4,7 @@ export type Post = {
   webLink: string;
   type: string;
   userId?: number;
+  moreButton?: boolean;
   data: Article[] | NewsItem[];
 };
 

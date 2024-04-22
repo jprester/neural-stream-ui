@@ -46,6 +46,7 @@ export default async function Home() {
             webLink: dataObject.WEB_LINK,
             name: dataObject.NAME,
             type: dataObject.TYPE,
+            moreButton: true,
             data: parsedFeedData,
           };
         })
@@ -74,6 +75,7 @@ export default async function Home() {
     webLink: "",
     type: "articles",
     data: getNewsItems() as NewsItem[],
+    moreButton: false,
   };
 
   const allNewsItems = [newsFeed, ...(postsData ?? [])];

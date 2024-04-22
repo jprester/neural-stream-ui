@@ -9,10 +9,10 @@ const PostsList = ({ postData }: { postData: Posts }) => {
     <>
       {postData.map((item, index) => {
         return (
-          <div key={createKeyId(item.name, index)} className="mb-4 p-4">
-            <h3 className="inline-block mb-2 text-xl tracking-tight text-grey-600 font-medium text-gray-100">
+          <div key={createKeyId(item.name, index)} className="mb-4 px-4 py-0">
+            <h4 className="inline-block mb-2 text-sm tracking-tight text-grey-600 text-gray-100 font-bold">
               {item.name}
-            </h3>
+            </h4>
             <ListGroup className="dark:bg-gray-800">
               {item.data.map((article, index) => {
                 return (
@@ -24,14 +24,17 @@ const PostsList = ({ postData }: { postData: Posts }) => {
                 );
               })}
             </ListGroup>
+
             <div className="mt-4 flex justify-end">
-              <Button
-                color="primary"
-                outline
-                className="dark:bg-gray-800 dark:text-grey-100 dark:hover:bg-gray-700 dark:hover:text-gray-100"
-                href={item.webLink}>
-                More...
-              </Button>
+              {item.moreButton && (
+                <Button
+                  color="primary"
+                  outline
+                  className="dark:bg-gray-800 dark:text-grey-100 dark:hover:bg-gray-700 dark:hover:text-gray-100"
+                  href={item.webLink}>
+                  More...
+                </Button>
+              )}
             </div>
           </div>
         );
