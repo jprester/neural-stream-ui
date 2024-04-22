@@ -1,4 +1,3 @@
-import React from "react";
 import { ListGroup, ListGroupItem } from "flowbite-react";
 
 const UngroupedPostList = ({ newsItems }: any) => {

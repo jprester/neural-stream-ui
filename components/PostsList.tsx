@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 import { NewsItem, Posts } from "@/types";
@@ -19,8 +18,7 @@ const PostsList = ({ postData }: { postData: Posts }) => {
                 return (
                   <ListGroupItem
                     key={createKeyId(article.title, index)}
-                    href={`${article.id || article.link}`}
-                  >
+                    href={`${article.id || article.link}`}>
                     {article.title}
                   </ListGroupItem>
                 );
@@ -31,8 +29,7 @@ const PostsList = ({ postData }: { postData: Posts }) => {
                 color="primary"
                 outline
                 className="dark:bg-gray-800 dark:text-grey-100 dark:hover:bg-gray-700 dark:hover:text-gray-100"
-                href={item.webLink}
-              >
+                href={item.webLink}>
                 More...
               </Button>
             </div>
