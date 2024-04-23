@@ -74,7 +74,14 @@ export default async function Home() {
     name: "AI News",
     webLink: "",
     type: "articles",
-    data: getNewsItems() as NewsItem[],
+    data: getNewsItems()
+      .filter((item) => item.title) // Filter out items without a title
+      .sort((a, b) => {
+        // Sort by date
+        if (a.date < b.date) return 1;
+        if (a.date > b.date) return -1;
+        return 0;
+      }) as NewsItem[],
     moreButton: false,
   };
 

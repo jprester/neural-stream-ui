@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import { NewsItem } from "@/types";
 
 export function getNewsItems() {
   const directory = path.join(process.cwd(), "public/data/articles");
@@ -19,5 +20,5 @@ export function getNewsItems() {
     };
   });
 
-  return newsItems;
+  return newsItems as NewsItem[];
 }
