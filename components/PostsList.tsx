@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-import { NewsItem, Posts } from "@/types";
+import { Posts } from "@/types";
 import { createKeyId, isSafeUrl } from "@/helpers/utils";
 import { Button, ListGroup, ListGroupItem } from "flowbite-react";
 
