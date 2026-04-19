@@ -4,7 +4,7 @@ import { Spinner } from "flowbite-react";
 
 import Loading from "./loading";
 
-function Layout({ children }: any) {
+function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <Link

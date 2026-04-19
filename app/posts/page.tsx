@@ -1,5 +1,7 @@
+import { redirect } from "next/navigation";
+
 const Posts = () => {
-  return <div>3333</div>;
+  redirect("/");
 };
 
 export default Posts;

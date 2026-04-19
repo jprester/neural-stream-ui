@@ -1,18 +1,18 @@
 import { ListGroup, ListGroupItem } from "flowbite-react";
 
-const UngroupedPostList = ({ newsItems }: any) => {
+import { NewsItem } from "@/types";
+import { sortByDate } from "@/helpers/utils";
+
+const UngroupedPostList = ({ newsItems }: { newsItems: NewsItem[] }) => {
   if (!newsItems?.length) return null;
-  // sort by date
-  newsItems.sort((a: any, b: any) => {
-    if (a.date < b.date) return 1;
-    if (a.date > b.date) return -1;
-    return 0;
-  });
+
+  const sorted = sortByDate(newsItems, (item) => item.date);
+
   return (
     <ListGroup>
-      {newsItems?.map((item: any, index: number) => {
-        return <ListGroupItem key={index}>{item.title}</ListGroupItem>;
-      })}
+      {sorted.map((item, index) => (
+        <ListGroupItem key={index}>{item.title}</ListGroupItem>
+      ))}
     </ListGroup>
   );
 };

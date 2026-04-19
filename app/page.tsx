@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import PostsList from "@/components/PostsList";
 import { FEED_SOURCES } from "@/helpers/apiConfig";
-import { parseFeedData } from "@/helpers/utils";
+import { parseFeedData, sortByDate } from "@/helpers/utils";
 import { getNewsItems } from "@/helpers/parseMarkdown";
 
 import Logo from "public/logo.svg";
@@ -32,39 +32,50 @@ export default async function Home() {
       .filter((feed) => feed.ENABLED === true); // What data sources to exclude from request
 
     try {
-      const dataPromises = feedRequestData.map((dataObject) =>
-        fetch(dataObject.FEED, { cache: "no-store" }).then(async (response) => {
-          const xmlResponse = await response.text();
-          const parsedResult = parser.parse(xmlResponse);
-          const parsedFeedData = parseFeedData(
-            parsedResult,
-            dataObject.ARTICLE_NUM
-          );
+      const dataPromises = feedRequestData.map((dataObject) => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10_000);
 
-          return {
-            feedName: dataObject.NAME,
-            webLink: dataObject.WEB_LINK,
-            name: dataObject.NAME,
-            type: dataObject.TYPE,
-            moreButton: true,
-            data: parsedFeedData,
-          };
+        return fetch(dataObject.FEED, {
+          signal: controller.signal,
+          next: { revalidate: 3600 },
         })
-      );
+          .then(async (response) => {
+            clearTimeout(timeoutId);
+            if (!response.ok) return null;
+            const xmlResponse = await response.text();
+            const parsedResult = parser.parse(xmlResponse);
+            const parsedFeedData = parseFeedData(parsedResult, dataObject.ARTICLE_NUM);
+            return {
+              feedName: dataObject.NAME,
+              webLink: dataObject.WEB_LINK,
+              name: dataObject.NAME,
+              type: dataObject.TYPE,
+              moreButton: true,
+              data: parsedFeedData,
+            };
+          })
+          .catch(() => {
+            clearTimeout(timeoutId);
+            return null;
+          });
+      });
+
       const promiseData = await Promise.all(dataPromises);
 
-      const updatedArray = promiseData
-        .filter((item) => item?.data?.length > 0)
-        .sort((a, b) => {
-          // Sort entries by the date of the first article
-          if (a.data[0].published < b.data[0].published) return 1;
-          if (a.data[0].published > b.data[0].published) return -1;
-          return 0;
-        });
+      const validData = promiseData.filter(
+        (item): item is NonNullable<typeof item> => item !== null && item.data.length > 0
+      );
 
-      return updatedArray;
+      const updatedArray = sortByDate(
+        validData,
+        (item) => String((item.data[0] as Record<string, unknown>).pubDate ?? "")
+      );
+
+      return updatedArray as unknown as Post[];
     } catch (error) {
       console.error("Error fetching data:", error);
+      return [];
     }
   };
 
@@ -74,14 +85,10 @@ export default async function Home() {
     name: "AI News",
     webLink: "",
     type: "articles",
-    data: getNewsItems()
-      .filter((item) => item.title) // Filter out items without a title
-      .sort((a, b) => {
-        // Sort by date
-        if (a.date < b.date) return 1;
-        if (a.date > b.date) return -1;
-        return 0;
-      }) as NewsItem[],
+    data: sortByDate(
+      getNewsItems().filter((item) => item.title),
+      (item) => item.date
+    ) as NewsItem[],
     moreButton: false,
   };
 

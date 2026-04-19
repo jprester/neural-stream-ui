@@ -14,21 +14,22 @@ export function createIdFromTitle(title: string) {
   return textArray.join("-");
 }
 
-export function parseFeedData(data: any, limit: number = 10) {
-  if (!data?.rss?.channel && !data?.feed) {
-    return {};
+export function parseFeedData(data: Record<string, unknown>, limit: number = 10): Record<string, unknown>[] {
+  const rss = data?.rss as Record<string, unknown> | undefined;
+  if (!rss?.channel && !data?.feed) {
+    return [];
   }
 
-  const feedResult = data?.feed || data?.rss?.channel;
+  const feedResult = (data?.feed ?? rss?.channel) as Record<string, unknown>;
 
-  let feedData;
+  let feedData: Record<string, unknown>[];
   if (feedResult?.item) {
-    feedData = feedResult.item.filter(
-      (item: any, index: number) => index < limit && item
+    feedData = (feedResult.item as Record<string, unknown>[]).filter(
+      (_item, index) => index < limit
     );
   } else if (feedResult?.entry) {
-    feedData = feedResult.entry.filter(
-      (item: any, index: number) => index < limit && item
+    feedData = (feedResult.entry as Record<string, unknown>[]).filter(
+      (_item, index) => index < limit
     );
   } else {
     feedData = [];
@@ -37,18 +38,34 @@ export function parseFeedData(data: any, limit: number = 10) {
   return feedData;
 }
 
-export function addOrUpdateObject(array: any[], newObject: any) {
-  let newArray = array;
-  const index = newArray.findIndex(
-    (item) => item.webLink === newObject.webLink
-  );
+export function addOrUpdateObject<T extends { webLink: string }>(array: T[], newObject: T): T[] {
+  const newArray = [...array];
+  const index = newArray.findIndex((item) => item.webLink === newObject.webLink);
   if (index !== -1) {
     newArray[index] = newObject;
   } else {
     newArray.push(newObject);
   }
-
   return newArray;
+}
+
+export function sortByDate<T>(arr: T[], getDate: (item: T) => string): T[] {
+  return [...arr].sort((a, b) => {
+    const da = getDate(a);
+    const db = getDate(b);
+    if (da < db) return 1;
+    if (da > db) return -1;
+    return 0;
+  });
+}
+
+export function isSafeUrl(url: string): boolean {
+  try {
+    const { protocol } = new URL(url);
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 export function formatDate(date: string) {

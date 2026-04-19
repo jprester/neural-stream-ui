@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { NewsItem, Posts } from "@/types";
-import { createKeyId } from "@/helpers/utils";
+import { createKeyId, isSafeUrl } from "@/helpers/utils";
 import { Button, ListGroup, ListGroupItem } from "flowbite-react";
 
 const PostsList = ({ postData }: { postData: Posts }) => {
@@ -18,7 +18,7 @@ const PostsList = ({ postData }: { postData: Posts }) => {
                 return (
                   <ListGroupItem
                     key={createKeyId(article.title, index)}
-                    href={`${article.id || article.link}`}>
+                    href={isSafeUrl(String(article.id || article.link)) ? String(article.id || article.link) : undefined}>
                     {article.title}
                   </ListGroupItem>
                 );
